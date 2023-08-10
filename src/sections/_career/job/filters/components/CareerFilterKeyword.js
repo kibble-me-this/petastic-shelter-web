@@ -21,7 +21,7 @@ export default function CareerFilterKeyword({ filterKeyword, onChangeKeyword, sx
           {...params}
           hiddenLabel
           variant="filled"
-          placeholder="Job title, keywords..."
+          placeholder="Enter Your Shelter Name"
           InputProps={{
             ...params.InputProps,
             autoComplete: 'search',

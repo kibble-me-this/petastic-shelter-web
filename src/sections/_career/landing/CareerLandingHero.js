@@ -29,8 +29,8 @@ import { CareerFilterKeyword, CareerFilterLocations } from '../job/filters/compo
 
 const StyledRoot = styled(Stack)(({ theme }) => ({
   ...bgGradient({
-    color: alpha(theme.palette.grey[900], 0.8),
-    imgUrl: '/assets/background/overlay_2.jpg',
+    color: alpha(theme.palette.grey[300], 0),
+    imgUrl: '/assets/background/overlay_4.jpg',
   }),
   overflow: 'hidden',
   paddingTop: theme.spacing(15),
@@ -90,12 +90,12 @@ export default function CareerLandingHero() {
               }}
             >
               <Stack spacing={3}>
-                <Typography variant="h1" sx={{ color: 'common.white' }}>
-                  Get The
+                <Typography variant="h1" sx={{ color: 'common.black' }}>
+                  Earn cash for
                   <Box component="span" sx={{ color: 'primary.main' }}>
-                    {` Career `}
+                    {` each pet `}
                   </Box>
-                  You Deserve
+                  that finds a home.
                 </Typography>
 
                 <Typography sx={{ color: 'grey.500' }}>
@@ -109,37 +109,25 @@ export default function CareerLandingHero() {
                   filterKeyword={filters.filterKeyword}
                   onChangeKeyword={handleChangeKeyword}
                   sx={{
-                    bgcolor: 'transparent',
-                    '&:hover, &.Mui-focused': { bgcolor: 'transparent' },
+                    bgcolor: '',
+                    '&:hover, &.Mui-focused': { bgcolor: 'dark-gray' },
                   }}
                 />
 
                 {isMdUp && <Divider orientation="vertical" sx={{ height: 24 }} />}
 
-                <CareerFilterLocations
-                  filterLocation={filters.filterLocation}
-                  onChangeLocation={handleChangeLocation}
-                  sx={{
-                    bgcolor: 'transparent',
-                    '&:hover, &.Mui-focused': { bgcolor: 'transparent' },
-                  }}
-                />
+
 
                 <Button
                   size="large"
                   variant="contained"
                   sx={{
                     px: 0,
-                    minWidth: { xs: 1, md: 48 },
+                    minWidth: { xs: 1, md: 125 },
                   }}
-                >
-                  <Iconify icon="carbon:search" width={24} />
+                >Claim Shelter
                 </Button>
               </StyledBar>
-
-              <BrandsSection />
-
-              <SummarySection />
             </Stack>
           </Grid>
 

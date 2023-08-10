@@ -22,8 +22,8 @@ export function responsiveFontSizes({ sm, md, lg }) {
   };
 }
 
-const primaryFont = 'Satoshi, sans-serif';
-const secondaryFont = 'ITC Souvenir, sans-serif';
+const primaryFont = '"Public Sans", sans-serif'; // Update the primary font here
+const secondaryFont = '"Public Sans", sans-serif';
 
 // ----------------------------------------------------------------------
 
@@ -34,8 +34,8 @@ const typography = {
   fontWeightSemiBold: 600,
   fontWeightBold: 700,
   h1: {
-    fontWeight: 400,
-    lineHeight: 80 / 64,
+    fontWeight: 700,
+    lineHeight: 72 / 64,
     fontSize: pxToRem(64),
     fontFamily: secondaryFont,
     ...responsiveFontSizes({ sm: 52, md: 58, lg: 64 }),
