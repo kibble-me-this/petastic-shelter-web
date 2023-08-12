@@ -52,7 +52,7 @@ export default function CareerLandingTopCompanies({ companies }) {
       sx={{
         pt: { xs: 10, md: 15 },
         overflow: 'hidden',
-        bgcolor: 'background.neutral',
+        bgcolor: 'white',
       }}
     >
       <Container>

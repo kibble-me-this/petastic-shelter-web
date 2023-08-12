@@ -50,8 +50,7 @@ function CareerHeroIllustration({ sx, ...other }) {
       {...other}
     >
       <>
-        <Character front sx={{ position: 'absolute', bottom: 16, zIndex: 10, width: 300 }} />
-        {/* Accounting */}
+        {/* Accounting 
         <Box
           sx={{
             top: 170,
@@ -73,10 +72,20 @@ function CareerHeroIllustration({ sx, ...other }) {
             />
           </m.div>
         </Box>
-        <Character sx={{ position: 'absolute', bottom: 16, zIndex: 8, width: 300 }} />
+*/}
+        <Image
+            alt="accounting"
+            src="/assets/images/career/hero.png"
+            sx={{
+              top: 170,
+              zIndex: 0,
+              position: 'absolute',
+              transform: 'translateY(-165px) rotate(0deg)',
+            }}
+          />
       </>
 
-      {/* Banking */}
+      {/* Banking 
       <Box sx={{ position: 'absolute', transform: 'translate(175px, 90px) rotate(15deg)' }}>
         <m.div style={{ x: offsetX(80), y: offsetY(80) }}>
           <Label
@@ -91,8 +100,8 @@ function CareerHeroIllustration({ sx, ...other }) {
           />
         </m.div>
       </Box>
-
-      {/* Health Care */}
+*/}
+      {/* Health Care 
       <Box sx={{ position: 'absolute', transform: 'translate(170px, -110px) rotate(15deg)' }}>
         <m.div style={{ y: offsetY(80) }}>
           <Label
@@ -107,8 +116,8 @@ function CareerHeroIllustration({ sx, ...other }) {
           />
         </m.div>
       </Box>
-
-      {/* Software */}
+*/}
+      {/* Software 
       <Box
         sx={{
           zIndex: 10,
@@ -130,8 +139,8 @@ function CareerHeroIllustration({ sx, ...other }) {
           />
         </m.div>
       </Box>
-
-      {/* Icon */}
+*/}
+      {/* Icon 
       <Box sx={{ position: 'absolute', top: 16, transform: 'translateX(20px)' }}>
         <m.div style={{ x: offsetX(50), y: offsetY(50) }}>
           <Icon
@@ -140,8 +149,8 @@ function CareerHeroIllustration({ sx, ...other }) {
           />
         </m.div>
       </Box>
-
-      {/* Icon */}
+*/}
+      {/* Icon 
       <Box sx={{ position: 'absolute', bottom: 16, transform: 'translateX(40px)' }}>
         <m.div style={{ x: offsetX(-60), y: offsetY(60) }}>
           <Icon
@@ -152,8 +161,8 @@ function CareerHeroIllustration({ sx, ...other }) {
           />
         </m.div>
       </Box>
-
-      {/* Icon */}
+*/}
+      {/* Icon 
       <Box sx={{ position: 'absolute', bottom: 220, transform: 'translateX(-220px)' }}>
         <m.div style={{ x: offsetX(70), y: offsetY(70) }}>
           <Icon
@@ -164,10 +173,10 @@ function CareerHeroIllustration({ sx, ...other }) {
           />
         </m.div>
       </Box>
+*/}
+      <Pattern01 sx={{ top: -70 }}/>
 
-      <Pattern01 />
-
-      <Pattern02 />
+      <Pattern02 sx={{ top: -70 }}/>
     </Box>
   );
 }

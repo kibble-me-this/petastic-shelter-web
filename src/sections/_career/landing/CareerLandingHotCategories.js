@@ -10,14 +10,15 @@ import TextMaxLine from 'src/components/text-max-line';
 
 export default function CareerLandingHotCategories({ categories }) {
   return (
-    <Container
+    <Box
       sx={{
-        pt: { xs: 10, md: 15 },
-        pb: { xs: 5, md: 10 },
+        bgcolor: 'background.paper',
+        py: { xs: 10, md: 15 },
       }}
     >
+    <Container>
       <Typography variant="h2" sx={{ textAlign: 'center' }}>
-        Hot Categories
+        How it works
       </Typography>
 
       <Box
@@ -48,6 +49,7 @@ export default function CareerLandingHotCategories({ categories }) {
         </Button>
       </Stack>
     </Container>
+    </Box>
   );
 }
 

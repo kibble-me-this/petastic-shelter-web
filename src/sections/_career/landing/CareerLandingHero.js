@@ -33,13 +33,13 @@ const StyledRoot = styled(Stack)(({ theme }) => ({
     imgUrl: '/assets/background/overlay_4.jpg',
   }),
   overflow: 'hidden',
-  paddingTop: theme.spacing(1),
+  paddingTop: theme.spacing(15),
   paddingBottom: theme.spacing(10),
   [theme.breakpoints.up('md')]: {
-    minHeight: '100vh',
+    minHeight: '70vh',
     alignItems: 'center',
     justifyContent: 'center',
-    paddingBottom: theme.spacing(34),
+    paddingBottom: theme.spacing(10),
   },
 }));
 

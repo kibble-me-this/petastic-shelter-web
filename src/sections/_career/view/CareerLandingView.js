@@ -30,13 +30,13 @@ export default function CareerLandingView() {
   return (
     <>
       <CareerLandingHero />
-
+{/*
       <CareerLandingStep />
 
-      <CareerLandingFeaturedJobs jobs={_jobs.slice(-6)} />
+       <CareerLandingFeaturedJobs jobs={_jobs.slice(-6)} /> 
 
       <CareerLandingTopCompanies companies={_jobsByCompanies} />
-
+*/}
       <CareerLandingHotCategories categories={_jobsByCategories} />
 
       <CareerLandingConnections countries={_jobsByCountries} />
@@ -49,9 +49,9 @@ export default function CareerLandingView() {
 
       <BlogCareerLatestPosts posts={_blogCareerPosts.slice(0, 5)} />
 
-      <DownloadAppCareer />
+      {/* <DownloadAppCareer /> */}
 
-      <NewsletterCareer />
+      <NewsletterCareer /> 
     </>
   );
 }

@@ -102,7 +102,7 @@ export default function palette(themeMode) {
       secondary: GREY[600],
       disabled: GREY[500],
     },
-    background: { paper: '#FFFFFF', default: '#FFFFFF', neutral: GREY[100] },
+    background: { paper: '#FFFFFF', default: alpha(PRIMARY.main, 0.05), neutral: GREY[100] },
     action: {
       ...COMMON.action,
       active: GREY[600],

@@ -29,7 +29,7 @@ export default function Header({ headerOnDark }) {
   const isOffset = useOffSetTop();
 
   return (
-    <AppBar color="transparent" sx={{ boxShadow: 'none' }}>
+    <AppBar color="transparent" sx={{ background: theme.palette.background.default, boxShadow: 'none' }}>
       <Toolbar
         disableGutters
         sx={{
@@ -45,7 +45,7 @@ export default function Header({ headerOnDark }) {
             color: 'common.white',
           }),
           ...(isOffset && {
-            ...bgBlur({ color: theme.palette.background.default }),
+            ...bgBlur({ color: theme.palette.background.neutral }),
             color: 'text.primary',
             height: {
               md: HEADER.H_MAIN_DESKTOP - 16,
