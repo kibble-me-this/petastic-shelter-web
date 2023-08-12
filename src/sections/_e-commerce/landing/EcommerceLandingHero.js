@@ -50,7 +50,7 @@ export default function EcommerceLandingHero() {
       <Box
         sx={{
           ...bgGradient({
-            color: alpha(theme.palette.background.default, 0.9),
+            color: alpha(theme.palette.background.paper, 0.9),
             imgUrl: '/assets/background/overlay_1.jpg',
           }),
           borderRadius: 3,

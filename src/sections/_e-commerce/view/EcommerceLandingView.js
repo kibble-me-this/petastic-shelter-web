@@ -19,25 +19,25 @@ import {
 export default function EcommerceLandingView() {
   return (
     <>
-      <EcommerceHeader />
+      {/* <EcommerceHeader /> */}
 
       <EcommerceLandingHero />
 
-      <EcommerceLandingCategories />
+      {/* <EcommerceLandingCategories /> */}
 
       <EcommerceLandingHotDealToday />
 
-      <EcommerceLandingFeaturedProducts />
+      {/* <EcommerceLandingFeaturedProducts /> */}
 
-      <EcommerceLandingSpecialOffer />
+      {/* <EcommerceLandingSpecialOffer /> */}
 
-      <EcommerceLandingFeaturedBrands />
+      {/* <EcommerceLandingFeaturedBrands /> */}
 
-      <EcommerceLandingPopularProducts />
+      {/* <EcommerceLandingPopularProducts /> */}
 
-      <EcommerceLandingTopProducts />
+      {/* <EcommerceLandingTopProducts /> */}
 
-      <TestimonialEcommerce testimonials={_testimonials} />
+      {/* <TestimonialEcommerce testimonials={_testimonials} /> */}
     </>
   );
 }

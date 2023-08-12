@@ -1,8 +1,8 @@
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
 import { add } from 'date-fns';
 // @mui
 import { useTheme } from '@mui/material/styles';
-import { Typography, Container, Stack, Box } from '@mui/material';
+import { Typography, Container, Stack, Box, Tabs, Tab } from '@mui/material';
 // hooks
 import useResponsive from 'src/hooks/useResponsive';
 // _mock
@@ -14,6 +14,10 @@ import { ProductCountdownBlock } from '../components';
 import { EcommerceProductItemHot } from '../product/item';
 
 // ----------------------------------------------------------------------
+const TABS = ['Featured Products', 'Top Rated Products', 'Onsale Products'];
+
+// ----------------------------------------------------------------------
+
 
 export default function EcommerceLandingHotDealToday() {
   const theme = useTheme();
@@ -21,6 +25,12 @@ export default function EcommerceLandingHotDealToday() {
   const isMdUp = useResponsive('up', 'md');
 
   const carouselRef = useRef(null);
+
+  const [tab, setTab] = useState('Featured Products');
+
+  const handleChangeTab = (event, newValue) => {
+    setTab(newValue);
+  };
 
   const carouselSettings = {
     dots: true,
@@ -76,10 +86,10 @@ export default function EcommerceLandingHotDealToday() {
             textAlign: { xs: 'center', md: 'unset' },
           }}
         >
-          🔥 Hot Deal Today
+          Pets at your shelter
         </Typography>
 
-        <ProductCountdownBlock
+        {/* <ProductCountdownBlock
           hiddenLabel
           expired={add(new Date(), { hours: 1, minutes: 30 })}
           sx={{
@@ -94,7 +104,7 @@ export default function EcommerceLandingHotDealToday() {
             },
             '& .separator': { color: 'text.primary' },
           }}
-        />
+        /> */}
 
         {isMdUp && (
           <CarouselArrows
@@ -106,7 +116,18 @@ export default function EcommerceLandingHotDealToday() {
           />
         )}
       </Stack>
-
+      <Tabs
+        value={tab}
+        scrollButtons="auto"
+        variant="scrollable"
+        allowScrollButtonsMobile
+        onChange={handleChangeTab}
+        sx={{ my: 5 }}
+      >
+        {TABS.map((category) => (
+          <Tab key={category} value={category} label={category} />
+        ))}
+      </Tabs>
       <Carousel ref={carouselRef} {...carouselSettings}>
         {_products.map((product) => (
           <Box
