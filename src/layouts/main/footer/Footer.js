@@ -84,7 +84,8 @@ export default function Footer() {
                   helps you build apps faster and better.
                 </Typography>
               </Stack>
-
+              
+              {/*
               <Stack spacing={1} alignItems="flex-start">
                 <Typography variant="h6">Community</Typography>
                 <Link variant="body2" sx={{ color: 'text.primary' }}>
@@ -98,6 +99,7 @@ export default function Footer() {
                 </Link>
               </Stack>
 
+              
               <Stack spacing={2}>
                 <Stack spacing={1}>
                   <Typography variant="h6">Let’s stay in touch</Typography>
@@ -122,9 +124,10 @@ export default function Footer() {
                   }}
                 />
               </Stack>
+              */}
 
               <Stack spacing={2}>
-                <Typography variant="h6">Social</Typography>
+                {/* <Typography variant="h6">Social</Typography> */}
                 <Stack direction="row" alignItems="center">
                   {_socials.map((social) => (
                     <IconButton key={social.value} color="primary">
@@ -134,10 +137,12 @@ export default function Footer() {
                 </Stack>
               </Stack>
 
+              {/*
               <Stack spacing={2}>
                 <Typography variant="h6">Apps</Typography>
                 <AppStoreButton />
-              </Stack>
+              </Stack> 
+              */}
             </Stack>
           </Grid>
 

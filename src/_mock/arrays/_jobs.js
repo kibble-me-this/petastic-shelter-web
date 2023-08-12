@@ -76,7 +76,7 @@ const ICONS = [
   '/assets/icons/ic_banking.svg',
 ];
 
-export const _jobsByCategories = [...Array(8)].map((_, index) => ({
+export const _jobsByCategories = [...Array(3)].map((_, index) => ({
   id: _mock.id(index),
   name: NAMES[index],
   icon: ICONS[index],

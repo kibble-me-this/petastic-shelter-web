@@ -23,6 +23,9 @@ import {
   CareerLandingHotCategories,
   CareerLandingForRecruiters,
 } from '../landing';
+import {
+  HomeFAQs
+} from '../../_home/components';
 
 // ----------------------------------------------------------------------
 
@@ -38,10 +41,16 @@ export default function CareerLandingView() {
       <CareerLandingTopCompanies companies={_jobsByCompanies} />
 */}
       <CareerLandingHotCategories categories={_jobsByCategories} />
+      
+      <HomeFAQs />
 
+      {/*
+      
       <CareerLandingConnections countries={_jobsByCountries} />
 
-      <CareerLandingForRecruiters />
+       <CareerLandingForRecruiters /> 
+       
+       */}
 
       <TestimonialCareer testimonials={_testimonials} />
 

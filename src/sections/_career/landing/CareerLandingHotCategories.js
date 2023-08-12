@@ -17,26 +17,26 @@ export default function CareerLandingHotCategories({ categories }) {
       }}
     >
     <Container>
-      <Typography variant="h2" sx={{ textAlign: 'center' }}>
+      <Typography variant="h2" sx={{ textAlign: 'left' }}>
         How it works
+      </Typography>
+      <Typography sx={{ color: 'grey.500' }}>
+        Etiam sollicitudin, ipsum eu pulvinar rutrum, tellus ipsum laoreet sapien, quis
+        venenatis ante odio sit amet eros.
       </Typography>
 
       <Box
-        sx={{
-          gap: 4,
-          display: 'grid',
-          my: { xs: 8, md: 10 },
-          gridTemplateColumns: {
-            xs: 'repeat(1, 1fr)',
-            sm: 'repeat(2, 1fr)',
-            md: 'repeat(4, 1fr)',
-          },
-        }}
-      >
-        {categories.map((category) => (
-          <CategoryItem key={category.id} category={category} />
-        ))}
-      </Box>
+          sx={{
+            display: 'flex',
+            justifyContent: 'space-between',
+            gap: 4,
+            my: { xs: 8, md: 10 },
+          }}
+        >
+          {categories.map((category) => (
+            <CategoryItem key={category.id} category={category} />
+          ))}
+        </Box>
 
       <Stack alignItems="center">
         <Button
@@ -64,11 +64,16 @@ function CategoryItem({ category }) {
     <Paper
       variant="outlined"
       sx={{
-        pt: '100%',
+        flex: '1', // Equal fraction of available width
+        minHeight: '250px', // Set the maximum height here
+        display: 'flex', // Use display flex
+        flexDirection: 'column', // Stack content vertically
+        justifyContent: 'center', // Vertically center content
+        alignItems: 'center', // Horizontally center content
+        width: '100%',
         borderRadius: 2,
         cursor: 'pointer',
         textAlign: 'center',
-        position: 'relative',
         bgcolor: 'transparent',
         transition: (theme) => theme.transitions.create('all'),
         '&:hover': {
@@ -84,43 +89,32 @@ function CategoryItem({ category }) {
         },
       }}
     >
-      <Stack
-        alignItems="center"
-        justifyContent="center"
+      <Box
+        className="icon"
         sx={{
-          width: 1,
-          height: 1,
-          top: 0,
-          position: 'absolute',
+          mb: 2.5,
+          width: 72,
+          height: 72,
+          display: 'flex',
+          borderRadius: '50%',
+          alignItems: 'center',
+          justifyContent: 'center',
         }}
       >
-        <Box
-          className="icon"
-          sx={{
-            mb: 2.5,
-            width: 72,
-            height: 72,
-            mx: 'auto',
-            display: 'flex',
-            borderRadius: '50%',
-            alignItems: 'center',
-            justifyContent: 'center',
-          }}
-        >
-          <SvgColor src={category.icon} sx={{ width: 48, height: 48 }} />
-        </Box>
+        <SvgColor src={category.icon} sx={{ width: 48, height: 48 }} />
+      </Box>
 
-        <TextMaxLine variant="h6" line={1}>
-          {category.name}
-        </TextMaxLine>
+      <TextMaxLine variant="h6" line={1}>
+        {category.name}
+      </TextMaxLine>
 
-        <Typography variant="body2" sx={{ color: 'text.disabled', mt: 0.5 }}>
-          {category.totalJobs} jobs
-        </Typography>
-      </Stack>
+      <Typography variant="body2" sx={{ color: 'text.disabled', mt: 0.5 }}>
+        {category.totalJobs} jobs
+      </Typography>
     </Paper>
   );
 }
+
 
 CategoryItem.propTypes = {
   category: PropTypes.shape({

@@ -6,6 +6,16 @@ import { paths } from 'src/routes/paths';
 export const pageLinks = [
   {
     order: '1',
+    cover: '/assets/images/menu/menu_marketing.jpg',
+    items: [
+      { title: 'Shelters', path: '/' },
+      { title: 'Blog', path: paths.components.root },
+      { title: 'About Us', path: paths.docs },
+    ],
+  },
+  {/* 
+  {
+    order: '1',
     subheader: 'Marketing',
     cover: '/assets/images/menu/menu_marketing.jpg',
     items: [
@@ -106,6 +116,7 @@ export const pageLinks = [
       { title: 'Support', path: paths.support },
     ],
   },
+  */}
 ];
 
 export const navConfig = [
