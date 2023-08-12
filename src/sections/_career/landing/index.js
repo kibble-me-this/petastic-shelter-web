@@ -5,3 +5,6 @@ export { default as CareerLandingTopCompanies } from './CareerLandingTopCompanie
 export { default as CareerLandingConnections } from './CareerLandingConnections';
 export { default as CareerLandingHotCategories } from './CareerLandingHotCategories';
 export { default as CareerLandingForRecruiters } from './CareerLandingForRecruiters';
+export { default as HomeFAQs } from './HomeFAQs';
+
+

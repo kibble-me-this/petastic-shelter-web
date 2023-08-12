@@ -22,10 +22,8 @@ import {
   CareerLandingConnections,
   CareerLandingHotCategories,
   CareerLandingForRecruiters,
+  HomeFAQs,
 } from '../landing';
-import {
-  HomeFAQs
-} from '../../_home/components';
 
 // ----------------------------------------------------------------------
 
@@ -33,34 +31,39 @@ export default function CareerLandingView() {
   return (
     <>
       <CareerLandingHero />
-{/*
+
+      {/*
+
       <CareerLandingStep />
 
-       <CareerLandingFeaturedJobs jobs={_jobs.slice(-6)} /> 
+      <CareerLandingFeaturedJobs jobs={_jobs.slice(-6)} /> 
 
       <CareerLandingTopCompanies companies={_jobsByCompanies} />
-*/}
+
+      */}
+
       <CareerLandingHotCategories categories={_jobsByCategories} />
       
-      <HomeFAQs />
-
       {/*
       
       <CareerLandingConnections countries={_jobsByCountries} />
 
-       <CareerLandingForRecruiters /> 
-       
-       */}
-
+      <CareerLandingForRecruiters /> 
+      
       <TestimonialCareer testimonials={_testimonials} />
 
       <OurClientsCareer brands={_brandsColor} />
 
-      <BlogCareerLatestPosts posts={_blogCareerPosts.slice(0, 5)} />
-
-      {/* <DownloadAppCareer /> */}
+      <BlogCareerLatestPosts posts={_blogCareerPosts.slice(0, 5)} /> 
+      
+      <DownloadAppCareer /> 
 
       <NewsletterCareer /> 
+      
+      */}
+
+      <HomeFAQs />
+      
     </>
   );
 }
