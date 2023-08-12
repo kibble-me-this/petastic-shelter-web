@@ -130,18 +130,13 @@ export default function HomeFAQs() {
 
             <m.div variants={varFade().inUp}>
               <Button
-                size="large"
-                color="inherit"
-                variant="contained"
-                endIcon={<img src="/assets/icons/platforms/ic_discord.svg" alt="Discord" style={{ filter: 'brightness(0) invert(1)' }} />}
-                href=""
-                sx={{
-                  backgroundColor: '#212B36',
-                  color: 'white',
-                }}
-                disabled
-              >
-                Join Discord
+                  size="large"
+                  variant="contained"
+                  sx={{
+                    px: 0,
+                    minWidth: { xs: 1, md: 125 },
+                  }}
+                >Contact Us
               </Button>
             </m.div>
           </Box>
