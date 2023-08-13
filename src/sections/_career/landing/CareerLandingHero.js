@@ -1,4 +1,6 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+
 // @mui
 import { styled, alpha } from '@mui/material/styles';
 import {
@@ -57,6 +59,7 @@ const StyledBar = styled(Stack)(({ theme }) => ({
 // ----------------------------------------------------------------------
 
 export default function CareerLandingHero() {
+  const navigate = useNavigate();
   const isMdUp = useResponsive('up', 'md');
 
   const [filters, setFilters] = useState({
@@ -125,7 +128,9 @@ export default function CareerLandingHero() {
                     px: 0,
                     minWidth: { xs: 1, md: 125 },
                   }}
-                >Claim Shelter
+                  onClick={() => navigate('/e-commerce/landing')} // Navigate on button click
+                >
+                  Claim Shelter
                 </Button>
               </StyledBar>
             </Stack>
