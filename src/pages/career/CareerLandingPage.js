@@ -8,7 +8,7 @@ export default function CareerLandingPage() {
   return (
     <>
       <Helmet>
-        <title>Landing | ZONE UI</title>
+        <title>Petastic | Shelters</title>
       </Helmet>
 
       <CareerLandingView />

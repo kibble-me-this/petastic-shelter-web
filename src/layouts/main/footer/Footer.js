@@ -57,7 +57,7 @@ export default function Footer() {
 
   const simpleFooter = (
     <Container sx={{ py: 8, textAlign: 'center' }}>
-      <Logo sx={{ pl: 1, pb: 3, width: '35.11px', height: '40px' }} single />
+      <Logo sx={{ pl: 1, pb: 3 }}  />
       <Typography variant="caption" component="div" sx={{ color: 'text.secondary' }}>
         © 2023. All rights reserved
       </Typography>

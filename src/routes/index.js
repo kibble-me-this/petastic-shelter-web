@@ -107,7 +107,7 @@ export default function Router() {
     {
       element: <MainLayout />,
       children: [
-        { element: <HomePage />, index: true },
+        { element: <CareerLandingPage />, index: true },
         { path: 'support', element: <SupportPage /> },
         // Marketing
         {

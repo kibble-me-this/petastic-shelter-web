@@ -40,11 +40,7 @@ export default function CareerLandingView() {
 
       <CareerLandingTopCompanies companies={_jobsByCompanies} />
 
-      */}
-
       <CareerLandingHotCategories categories={_jobsByCategories} />
-      
-      {/*
       
       <CareerLandingConnections countries={_jobsByCountries} />
 
@@ -60,10 +56,9 @@ export default function CareerLandingView() {
 
       <NewsletterCareer /> 
       
-      */}
-
       <HomeFAQs />
       
+       */}
     </>
   );
 }

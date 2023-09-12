@@ -60,6 +60,8 @@ export default function Header({ headerOnDark }) {
 
           {isMdUp && <NavDesktop data={navConfig} />}
 
+          {/*
+          
           <Stack
             spacing={2}
             flexGrow={1}
@@ -83,7 +85,7 @@ export default function Header({ headerOnDark }) {
             )}
           </Stack>
 
-          {/* {!isMdUp && <NavMobile data={navConfig} />} */}
+           {!isMdUp && <NavMobile data={navConfig} />} */}
         </Container>
       </Toolbar>
 
