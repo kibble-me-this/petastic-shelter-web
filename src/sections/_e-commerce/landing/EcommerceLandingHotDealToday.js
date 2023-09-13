@@ -1,4 +1,6 @@
-import { useRef, useState } from 'react';
+import { useRef, useState, useEffect } from 'react';
+import { useLocation } from 'react-router-dom'; // Import useLocation hook
+
 import { add } from 'date-fns';
 // @mui
 import { useTheme } from '@mui/material/styles';
@@ -14,19 +16,21 @@ import { ProductCountdownBlock } from '../components';
 import { EcommerceProductItemHot } from '../product/item';
 
 // ----------------------------------------------------------------------
-const TABS = ['Featured Products', 'Top Rated Products', 'Onsale Products'];
+const TABS = ['Dogs', 'Cats'];
 
 // ----------------------------------------------------------------------
 
 
 export default function EcommerceLandingHotDealToday() {
   const theme = useTheme();
+  const location = useLocation(); // Use useLocation hook to access URL query parameters
+
 
   const isMdUp = useResponsive('up', 'md');
 
   const carouselRef = useRef(null);
 
-  const [tab, setTab] = useState('Featured Products');
+  const [tab, setTab] = useState('Dogs');
 
   const handleChangeTab = (event, newValue) => {
     setTab(newValue);
@@ -58,6 +62,35 @@ export default function EcommerceLandingHotDealToday() {
     ],
   };
 
+  const [shelterDetails, setShelterDetails] = useState(null); // State to store shelter details
+  // Extract shelter_account_id from URL query parameters
+  const queryParams = new URLSearchParams(location.search);
+  const shelterAccountId = queryParams.get('shelter_account_id');
+
+  // Define the API URL with shelterAccountId
+  const apiUrl = `https://uot4ttu72a.execute-api.us-east-1.amazonaws.com/default/getPetsByAccountId?account_id=${shelterAccountId}`;
+
+  useEffect(() => {
+    // Fetch shelter details when the component mounts
+    fetch(apiUrl)
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+        return response.json();
+      })
+      .then((data) => {
+        console.log('Response Data:', data);
+
+        // Store the shelter details in state
+        setShelterDetails(data);
+      })
+      .catch((error) => {
+        console.error('Error fetching shelter details:', error);
+      });
+  }, [apiUrl]);
+  
+
   const handlePrev = () => {
     carouselRef.current?.slickPrev();
   };
@@ -87,6 +120,10 @@ export default function EcommerceLandingHotDealToday() {
           }}
         >
           Pets at your shelter
+        </Typography>
+
+        <Typography variant="body1">
+            Shelter Account ID: {shelterAccountId}
         </Typography>
 
         {/* <ProductCountdownBlock
@@ -129,17 +166,18 @@ export default function EcommerceLandingHotDealToday() {
         ))}
       </Tabs>
       <Carousel ref={carouselRef} {...carouselSettings}>
-        {_products.map((product) => (
-          <Box
-            key={product.id}
-            sx={{
-              py: 0.5,
-              px: { xs: 1, md: 1.5 },
-            }}
-          >
-            <EcommerceProductItemHot product={product} hotProduct />
-          </Box>
-        ))}
+        {shelterDetails &&
+          shelterDetails.map((pet) => (
+            <Box
+              key={pet.pet_passport_id}
+              sx={{
+                py: 0.5,
+                px: { xs: 1, md: 1.5 },
+              }}
+            >
+              <EcommerceProductItemHot product={pet} hotProduct />
+            </Box>
+          ))}
       </Carousel>
     </Container>
   );

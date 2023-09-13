@@ -33,19 +33,21 @@ export default function EcommerceProductItemHot({ product, hotProduct = false, s
         }}
       >
         <Image
-          src={product.coverImg}
+          src={product.avatar_file_name}
           sx={{
             mb: 2,
             borderRadius: 1.5,
             bgcolor: 'background.neutral',
+            height: '175px'
           }}
         />
+
 
         <Stack spacing={0.5}>
           <TextMaxLine variant="body2" line={1} sx={{ fontWeight: 'fontWeightMedium' }}>
             {product.name}
           </TextMaxLine>
-
+        {/*
           <ProductPrice
             price={product.price}
             sx={{
@@ -54,8 +56,9 @@ export default function EcommerceProductItemHot({ product, hotProduct = false, s
               }),
             }}
           />
+          */}
         </Stack>
-
+      {/*
         {hotProduct && (
           <Stack direction="row" alignItems="center" spacing={1} sx={{ mt: 1 }}>
             <LinearProgress
@@ -69,8 +72,9 @@ export default function EcommerceProductItemHot({ product, hotProduct = false, s
               variant="caption"
               sx={{ flexShrink: 0, color: 'text.disabled' }}
             >{`🔥 ${product.sold} Sold`}</Typography>
-          </Stack>
-        )}
+          </Stack> 
+        )} 
+        */}
       </Paper>
     </Link>
   );

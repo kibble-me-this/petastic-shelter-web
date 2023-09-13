@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 // @mui
@@ -10,6 +10,7 @@ import {
   Divider,
   Container,
   Typography,
+  Autocomplete, CircularProgress, TextField,
   Unstable_Grid2 as Grid,
 } from '@mui/material';
 // utils
@@ -60,7 +61,78 @@ const StyledBar = styled(Stack)(({ theme }) => ({
 
 export default function CareerLandingHero() {
   const navigate = useNavigate();
+  const [searchTerm, setSearchTerm] = useState('');
+  const [petType, setPetType] = useState("shelter");
+  const [breeds, setBreeds] = useState([]);
+  const [selectedBreed, setSelectedBreed] = useState([]);
+  const [loadingBreeds, setLoadingBreeds] = useState(false);
+  const [shelterAccountId, setShelterAccountId] = useState('');
+  const autocompleteRef = useRef(null);
+
   const isMdUp = useResponsive('up', 'md');
+
+  useEffect(() => {
+    const cleanup = () => {
+      setSearchTerm('');
+    };
+  
+    // This function will run when the component unmounts
+    return cleanup;
+  }, []);
+
+  const handleSearch = (event) => {
+    const searchTermValue = event.target.value;
+    setSearchTerm(searchTermValue);
+    setLoadingBreeds(true);
+
+    if (searchTermValue.trim() === '') {
+      // Reset the shelters state to an empty array if the search term is empty
+      setBreeds([]);
+      setLoadingBreeds(false);
+      return;
+    }
+  
+    fetch(`https://uot4ttu72a.execute-api.us-east-1.amazonaws.com/default/getSheltersByPartialName?partialName=${searchTermValue}`)
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+      return response.json();
+    })
+    .then((data) => {
+      // Check if data is an array before mapping
+      if (Array.isArray(data)) {
+        const shelterNamesAndCities = data.map((shelter) => {
+          const shelterName = shelter.name;
+          const shelterCity = shelter.city;
+          const shelterState = shelter.state;
+          setShelterAccountId(shelter.account_id);
+
+        
+          // Capitalize the first letter of each word in shelterCity
+          const capitalizedCity = shelterCity
+          .split(/\s|-/)
+          .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+          .join(' ');
+        
+          return `${shelterName}, ${capitalizedCity}, ${shelterState}`;
+        });
+        
+        setBreeds(shelterNamesAndCities);
+
+        
+      } else {
+        console.error('Invalid data format:', data);
+      }
+      setLoadingBreeds(false);
+    })
+    .catch((error) => {
+      console.error('Error fetching data:', error);
+      setLoadingBreeds(false);
+    });
+  
+  };
+  
 
   const [filters, setFilters] = useState({
     filterKeyword: null,
@@ -108,30 +180,60 @@ export default function CareerLandingHero() {
               </Stack>
 
               <StyledBar spacing={{ xs: 1, md: 0 }}>
-                <CareerFilterKeyword
-                  filterKeyword={filters.filterKeyword}
-                  onChangeKeyword={handleChangeKeyword}
-                  sx={{
-                    bgcolor: '',
-                    '&:hover, &.Mui-focused': { bgcolor: 'dark-gray' },
-                  }}
-                />
-
+              <Autocomplete
+                fullWidth
+                onBlur={() => {
+                  setLoadingBreeds(false); // Reset loading state
+                }}
+                ref={autocompleteRef}
+                options={breeds}
+                value={selectedBreed}
+                onChange={(event, values) => setSelectedBreed(values)}
+                renderInput={(params) => (
+                  <TextField
+                    {...params}
+                    label="Enter shelter name"
+                    variant="outlined"
+                    InputProps={{
+                      ...params.InputProps,
+                      endAdornment: (
+                        <>
+                          {loadingBreeds ? (
+                            <CircularProgress color="inherit" size={20} />
+                          ) : null}
+                          {params.InputProps.endAdornment}
+                        </>
+                      ),
+                    }}
+                    sx={{
+                      "& .MuiAutocomplete-endAdornment": {
+                        display: "none",
+                      },
+                    }}
+                    onChange={handleSearch}
+                    value={searchTerm}
+                    fullWidth
+                    disabled={!petType}
+                  />
+                )}
+                disabled={!petType}
+                loading={loadingBreeds}
+  loadingText="Fetching shelters..." // Set loading text here
+  noOptionsText={petType ? `Enter ${petType} name` : 'Choose Cat or Dog'}
+                // multiple
+              />
                 {isMdUp && <Divider orientation="vertical" sx={{ height: 24 }} />}
-
-
-
                 <Button
-                  size="large"
-                  variant="contained"
-                  sx={{
-                    px: 0,
-                    minWidth: { xs: 1, md: 125 },
-                  }}
-                  onClick={() => navigate('/e-commerce/landing')} // Navigate on button click
-                >
-                  Claim Shelter
-                </Button>
+  size="large"
+  variant="contained"
+  sx={{
+    px: 0,
+    minWidth: { xs: 1, md: 125 },
+  }}
+  onClick={() => navigate(`/e-commerce/landing?shelter_account_id=${shelterAccountId}`)}
+>
+  Claim Shelter
+</Button>
               </StyledBar>
             </Stack>
           </Grid>

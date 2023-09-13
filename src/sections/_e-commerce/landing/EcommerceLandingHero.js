@@ -1,8 +1,10 @@
-import { useRef } from 'react';
+import { useRef, useState, useEffect } from 'react';
+import { useLocation } from 'react-router-dom'; // Import useLocation hook
+
 
 // @mui
 import { alpha, useTheme } from '@mui/material/styles';
-import { Box, Container } from '@mui/material';
+import { Box, Container, Typography } from '@mui/material';
 // utils
 import { bgGradient } from 'src/utils/cssStyles';
 // _mock
@@ -16,6 +18,7 @@ import { EcommerceProductItemHero } from '../product/item';
 
 export default function EcommerceLandingHero() {
   const theme = useTheme();
+  const location = useLocation(); // Use useLocation hook to access URL query parameters
 
   const carouselRef = useRef(null);
 
@@ -41,6 +44,35 @@ export default function EcommerceLandingHero() {
     }),
   };
 
+  const [shelterDetails, setShelterDetails] = useState(null); // State to store shelter details
+
+
+  // Extract shelter_account_id from URL query parameters
+  const queryParams = new URLSearchParams(location.search);
+  const shelterAccountId = queryParams.get('shelter_account_id');
+
+  // Define the API URL with shelterAccountId
+  const apiUrl = `https://uot4ttu72a.execute-api.us-east-1.amazonaws.com/default/getPetsByAccountId=${shelterAccountId}`;
+
+  useEffect(() => {
+    // Fetch shelter details when the component mounts
+    fetch(apiUrl)
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+        return response.json();
+      })
+      .then((data) => {
+        // Store the shelter details in state
+        setShelterDetails(data);
+      })
+      .catch((error) => {
+        console.error('Error fetching shelter details:', error);
+      });
+  }, [apiUrl]);
+  
+
   return (
     <Container
       sx={{
@@ -63,6 +95,22 @@ export default function EcommerceLandingHero() {
             <EcommerceProductItemHero key={product.id} product={product} />
           ))}
         </Carousel>
+        <Box
+          sx={{
+            position: 'absolute',
+            top: '20%',
+            left: '50%',
+            transform: 'translateX(-50%)',
+            backgroundColor: 'rgba(255, 255, 255, 0.8)',
+            padding: theme.spacing(1),
+            borderRadius: theme.shape.borderRadius,
+          }}
+        >
+          <Typography variant="body1">
+            Shelter Account ID: {shelterAccountId}
+          </Typography>
+        </Box>
+
       </Box>
     </Container>
   );
