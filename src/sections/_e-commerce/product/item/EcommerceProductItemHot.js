@@ -12,9 +12,8 @@ import { ProductPrice } from '../../components';
 
 // ----------------------------------------------------------------------
 
-export default function EcommerceProductItemHot({ product, hotProduct = false, sx }) {
+export default function EcommerceProductItemHot({ product, index, hotProduct = false, sx }) {
   return (
-    <Link component={RouterLink} to={paths.eCommerce.product} color="inherit" underline="none">
       <Paper
         variant="outlined"
         sx={{
@@ -44,8 +43,20 @@ export default function EcommerceProductItemHot({ product, hotProduct = false, s
 
 
         <Stack spacing={0.5}>
+        <TextMaxLine variant="body2" line={1} sx={{ fontWeight: 'fontWeightMedium' }}>
+            {index}
+          </TextMaxLine>
           <TextMaxLine variant="body2" line={1} sx={{ fontWeight: 'fontWeightMedium' }}>
             {product.name}
+          </TextMaxLine>
+          <TextMaxLine variant="body2" line={1} sx={{ fontWeight: 'fontWeightMedium' }}>
+            {product.breed}
+          </TextMaxLine>
+          <TextMaxLine variant="body2" line={1} sx={{ fontWeight: 'fontWeightMedium' }}>
+            {product.type}
+          </TextMaxLine>
+          <TextMaxLine variant="body2" line={1} sx={{ fontWeight: 'fontWeightMedium' }}>
+            {product.age.life_stage}
           </TextMaxLine>
         {/*
           <ProductPrice
@@ -76,7 +87,6 @@ export default function EcommerceProductItemHot({ product, hotProduct = false, s
         )} 
         */}
       </Paper>
-    </Link>
   );
 }
 
@@ -84,4 +94,5 @@ EcommerceProductItemHot.propTypes = {
   hotProduct: PropTypes.bool,
   product: PropTypes.object,
   sx: PropTypes.object,
+  index: PropTypes.number, // Add this line
 };

@@ -21,10 +21,44 @@ const TABS = ['Dogs', 'Cats'];
 // ----------------------------------------------------------------------
 
 
+// ... (previous imports and constants)
+
 export default function EcommerceLandingHotDealToday() {
   const theme = useTheme();
-  const location = useLocation(); // Use useLocation hook to access URL query parameters
+  const location = useLocation();
+  const queryParams = new URLSearchParams(location.search);
+  const shelterAccountId = queryParams.get('shelter_account_id');
+  const [filteredDogs, setFilteredDogs] = useState([]);
+  const [filteredCats, setFilteredCats] = useState([]);
 
+  const apiUrl = `https://uot4ttu72a.execute-api.us-east-1.amazonaws.com/default/getPetsByAccountId?account_id=${shelterAccountId}`;
+
+  const [shelterDetails, setShelterDetails] = useState(null);
+
+  useEffect(() => {
+    console.log('Fetching shelter details...');
+    fetch(apiUrl)
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+        return response.json();
+      })
+      .then((data) => {
+        console.log('Response Data:', data);
+        setShelterDetails(data);
+
+        // Filter dogs and cats based on pet type
+        const dogs = data.filter((pet) => pet.type === 'Anymal::Carnivora::Canidae::Canis::Canis Lupus Familiars::Domesticated Dog:Dog');
+        const cats = data.filter((pet) => pet.type === 'Anymal::Carnivora::Felidae::Felis::Felis Catus::Domesticated Cat::Cat');
+        setFilteredDogs(dogs);
+        setFilteredCats(cats);
+      })
+      .catch((error) => {
+        console.error('Error fetching shelter details:', error);
+      });
+  }, [apiUrl]);
+  
 
   const isMdUp = useResponsive('up', 'md');
 
@@ -36,11 +70,21 @@ export default function EcommerceLandingHotDealToday() {
     setTab(newValue);
   };
 
+  const maxSlidesToShow = 6; // Maximum number of slides to show
+
+  let calculatedSlidesToShow = maxSlidesToShow;
+  let calculatedSlidesToScroll = maxSlidesToShow;
+
+  if (shelterDetails !== null) {
+    calculatedSlidesToShow = Math.min(maxSlidesToShow, shelterDetails.length);
+    calculatedSlidesToScroll = Math.min(maxSlidesToShow, shelterDetails.length);
+  }
+
   const carouselSettings = {
     dots: true,
     arrows: false,
-    slidesToShow: 6,
-    slidesToScroll: 6,
+    slidesToShow: calculatedSlidesToShow,
+    slidesToScroll: calculatedSlidesToScroll,
     rtl: Boolean(theme.direction === 'rtl'),
     ...CarouselDots({
       sx: {
@@ -62,35 +106,6 @@ export default function EcommerceLandingHotDealToday() {
     ],
   };
 
-  const [shelterDetails, setShelterDetails] = useState(null); // State to store shelter details
-  // Extract shelter_account_id from URL query parameters
-  const queryParams = new URLSearchParams(location.search);
-  const shelterAccountId = queryParams.get('shelter_account_id');
-
-  // Define the API URL with shelterAccountId
-  const apiUrl = `https://uot4ttu72a.execute-api.us-east-1.amazonaws.com/default/getPetsByAccountId?account_id=${shelterAccountId}`;
-
-  useEffect(() => {
-    // Fetch shelter details when the component mounts
-    fetch(apiUrl)
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error('Network response was not ok');
-        }
-        return response.json();
-      })
-      .then((data) => {
-        console.log('Response Data:', data);
-
-        // Store the shelter details in state
-        setShelterDetails(data);
-      })
-      .catch((error) => {
-        console.error('Error fetching shelter details:', error);
-      });
-  }, [apiUrl]);
-  
-
   const handlePrev = () => {
     carouselRef.current?.slickPrev();
   };
@@ -98,6 +113,8 @@ export default function EcommerceLandingHotDealToday() {
   const handleNext = () => {
     carouselRef.current?.slickNext();
   };
+
+  const petsToRender = tab === 'Dogs' ? filteredDogs : filteredCats;
 
   return (
     <Container
@@ -123,25 +140,8 @@ export default function EcommerceLandingHotDealToday() {
         </Typography>
 
         <Typography variant="body1">
-            Shelter Account ID: {shelterAccountId}
+          Shelter Account ID: {shelterAccountId}
         </Typography>
-
-        {/* <ProductCountdownBlock
-          hiddenLabel
-          expired={add(new Date(), { hours: 1, minutes: 30 })}
-          sx={{
-            '& .value': {
-              width: 36,
-              height: 32,
-              color: 'grey.800',
-              bgcolor: 'text.primary',
-              ...(theme.palette.mode === 'light' && {
-                color: 'common.white',
-              }),
-            },
-            '& .separator': { color: 'text.primary' },
-          }}
-        /> */}
 
         {isMdUp && (
           <CarouselArrows
@@ -152,6 +152,10 @@ export default function EcommerceLandingHotDealToday() {
             justifyContent="flex-end"
           />
         )}
+
+        <Typography variant="body1">
+          Number of Pets: {shelterDetails ? shelterDetails.length : 0}
+        </Typography>
       </Stack>
       <Tabs
         value={tab}
@@ -162,12 +166,16 @@ export default function EcommerceLandingHotDealToday() {
         sx={{ my: 5 }}
       >
         {TABS.map((category) => (
-          <Tab key={category} value={category} label={category} />
+          <Tab 
+            key={category} 
+            value={category} 
+            label={`${category} (${category === 'Dogs' ? filteredDogs.length : filteredCats.length})`} 
+          />
         ))}
       </Tabs>
+      {shelterDetails !== null && shelterDetails.length >= carouselSettings.slidesToShow && (
       <Carousel ref={carouselRef} {...carouselSettings}>
-        {shelterDetails &&
-          shelterDetails.map((pet) => (
+          {petsToRender.map((pet, index) => (
             <Box
               key={pet.pet_passport_id}
               sx={{
@@ -175,10 +183,11 @@ export default function EcommerceLandingHotDealToday() {
                 px: { xs: 1, md: 1.5 },
               }}
             >
-              <EcommerceProductItemHot product={pet} hotProduct />
+              <EcommerceProductItemHot product={pet} index={index} hotProduct />
             </Box>
           ))}
-      </Carousel>
+        </Carousel>
+      )}
     </Container>
   );
 }
